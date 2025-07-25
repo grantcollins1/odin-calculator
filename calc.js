@@ -3,19 +3,27 @@ let argOne = '';
 let argTwo = '';
 let started = false;
 
+function parseNumber(outcome) {
+  if (Number.isInteger(outcome)) {
+    return String(outcome);
+  }
+  else {
+    return outcome.toFixed(4);
+  }
+}
 
 function evaluate(curOperation) {
   if (curOperation === '+') {
-    argOne = String(parseFloat(argOne) + parseFloat(argTwo));
+    argOne = parseNumber(argOne + argTwo);
   }
   else if (curOperation === 'x') {
-    argOne = String(parseFloat(argOne) * parseFloat(argTwo))
+    argOne = parseNumber(argOne * argTwo);
   }
   else if (curOperation === '-') {
-    argOne = String(parseFloat(argOne) - parseFloat(argTwo))
+    argOne = parseNumber(argOne - argTwo);
   }
   else if (curOperation === '/') {
-    argOne = String(parseFloat(argOne) / parseFloat(argTwo))
+    argOne = parseNumber(argOne / argTwo);
   }
     argTwo = '';
     return argOne;
