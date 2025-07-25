@@ -23,7 +23,13 @@ function evaluate(curOperation) {
     argOne = parseNumber(Number(argOne) - Number(argTwo));
   }
   else if (curOperation === '/') {
-    argOne = parseNumber(Number(argOne) / Number(argTwo));
+    if (argTwo === "0") {
+      argOne = "ERROR";
+    }
+    else {
+      console.log(argTwo);
+      argOne = parseNumber(Number(argOne) / Number(argTwo));
+    }
   }
     argTwo = '';
     return argOne;
@@ -78,12 +84,6 @@ function executeAction(button, displayText) {
     clearCalculator();
   }
 }
-
-function add(displayText) {
-
-}
-
-
 
 const calcContainer = document.body.querySelector('.calc-container');
 const display = calcContainer.querySelector('.display');
