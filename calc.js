@@ -1,15 +1,11 @@
 let curOperation = "";
-let argOne = '';
+let argOne = '0';
 let argTwo = '';
 let started = false;
+let calcStatus = "cleared";
 
 function parseNumber(outcome) {
-  if (Number.isInteger(outcome)) {
-    return String(outcome);
-  }
-  else {
-    return outcome.toFixed(4);
-  }
+  return +outcome.toFixed(4);
 }
 
 function evaluate(curOperation) {
@@ -24,7 +20,8 @@ function evaluate(curOperation) {
   }
   else if (curOperation === '/') {
     if (argTwo === "0") {
-      argOne = "ERROR";
+      clearCalculator();
+      return "ERROR";
     }
     else {
       console.log(argTwo);
@@ -37,11 +34,11 @@ function evaluate(curOperation) {
 
 function clearCalculator() {
   curOperation = "";
-  argOne = '';
+  argOne = '0';
   argTwo = '';
-  displayText.textContent = '';
-  started = false;
+  displayText.textContent = '0';
   checkOperatorButtons("");
+  calcStatus = "cleared";
 }
 
 function executeAction(button, displayText) {
@@ -50,25 +47,27 @@ function executeAction(button, displayText) {
     if (button.id === '=') {
       argOne = evaluate(curOperation);
       displayText.textContent = argOne;
+      calcStatus = "pastResult";
       curOperation = '';
     }
-    else if (curOperation !== "") {
+    else if (calcStatus = "pastResult") {
       if (argOne !== "" && argTwo !== "") {
         displayText.textContent = evaluate(curOperation);
+        calcStatus = "pastResult";
       }
       curOperation = button.id;
     }
     else {
       curOperation = button.id;
-      started = true;
+      calcStatus = "pastResult";
     }
   }
   else if (button.className === 'number') {
-    if (started) {
+    if (calcStatus === "pastResult") {
       if (curOperation === '') {
         clearCalculator();
-        argOne += button.id;
-        displayText.textContent += button.id;
+        argOne = button.id;
+        displayText.textContent = argOne;
       }
       else {
         argTwo += button.id;
@@ -76,8 +75,13 @@ function executeAction(button, displayText) {
       }
     }
     else {
-      argOne += button.id;
-      displayText.textContent += button.id;
+      if (argOne === '0') {
+        argOne = button.id;
+      }
+      else {
+        argOne += button.id;
+      }
+      displayText.textContent = argOne;
     }
   }
   else if (button.className === 'clear') {
@@ -88,6 +92,7 @@ function executeAction(button, displayText) {
 const calcContainer = document.body.querySelector('.calc-container');
 const display = calcContainer.querySelector('.display');
 const displayText = calcContainer.querySelector('.display-text');
+displayText.textContent = "0";
 const opContainer = calcContainer.querySelector('.operator-container');
 const operatorRows = opContainer.querySelectorAll('.operator-row');
 const operatorButtons = [];

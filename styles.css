@@ -22,10 +22,17 @@ button {
   flex: 1;
   height: 50px;
   margin-top: 10px;
+  border: 0;
+  border-radius: 8px;
+  background-color: grey;
+  font-weight: bold;
+  color: white;
+  font-size: 20px;
 }
 
 .clear {
   flex: 3.55;
+  background-color: rgb(240, 128, 128); 
 }
 
 .display-text {
@@ -41,9 +48,4 @@ button {
 
 .operator {
   background-color: rgb(106, 166, 235);
-  border: 0;
-  border-radius: 8px;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
 }
