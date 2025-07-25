@@ -14,16 +14,16 @@ function parseNumber(outcome) {
 
 function evaluate(curOperation) {
   if (curOperation === '+') {
-    argOne = parseNumber(argOne + argTwo);
+    argOne = parseNumber(Number(argOne) + Number(argTwo));
   }
   else if (curOperation === 'x') {
-    argOne = parseNumber(argOne * argTwo);
+    argOne = parseNumber(Number(argOne) * Number(argTwo));
   }
   else if (curOperation === '-') {
-    argOne = parseNumber(argOne - argTwo);
+    argOne = parseNumber(Number(argOne) - Number(argTwo));
   }
   else if (curOperation === '/') {
-    argOne = parseNumber(argOne / argTwo);
+    argOne = parseNumber(Number(argOne) / Number(argTwo));
   }
     argTwo = '';
     return argOne;
