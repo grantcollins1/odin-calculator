@@ -20,7 +20,6 @@ function evaluate(curOperation) {
     argTwo = '';
     return argOne;
   }
-}
 
 function executeAction(button, displayText) {
   if (button.className === 'operator') {
