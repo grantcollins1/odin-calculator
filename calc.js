@@ -31,6 +31,7 @@ function evaluate(curOperation) {
 
 function executeAction(button, displayText) {
   if (button.className === 'operator') {
+    checkOperatorButtons(button.id);
     if (button.id === '=') {
       argOne = evaluate(curOperation);
       displayText.textContent = argOne;
@@ -70,7 +71,26 @@ const display = calcContainer.querySelector('.display');
 const displayText = calcContainer.querySelector('.display-text');
 const opContainer = calcContainer.querySelector('.operator-container');
 const operatorRows = opContainer.querySelectorAll('.operator-row');
+const operatorButtons = [];
 operatorRows.forEach((row) => {
   const buttons = row.querySelectorAll('button');
-  buttons.forEach((button) => button.addEventListener("click", ()=> executeAction(button, displayText)));
+  buttons.forEach((button) => {
+    button.addEventListener("click", ()=> executeAction(button, displayText));
+    if (button.className === "operator" && button.id !== '=') {
+      operatorButtons.push(button);
+    } 
+  });
 })
+
+function checkOperatorButtons(id) {
+  operatorButtons.forEach((button) => {
+    console.log(button.id);
+    if (button.id === id) {
+      button.style.backgroundColor = "rgb(40, 37, 228)";
+    }
+    else {
+      button.style.backgroundColor = 'rgb(106, 166, 235)';
+      button.style.border = 0;
+    }
+  });
+}
