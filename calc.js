@@ -6,16 +6,21 @@ let started = false;
 
 function evaluate(curOperation) {
   if (curOperation === '+') {
-    console.log(String(Number(argOne) + Number(argTwo)));
-    return String(Number(argOne) + Number(argTwo));
+    argOne = String(parseFloat(argOne) + parseFloat(argTwo));
+    argTwo = '';
+    return argOne;
   }
 }
 
 function executeAction(button, displayText) {
   if (button.className === 'operator') {
-    if (curOperation !== "") {
+    if (button.id === '=') {
+      argOne = evaluate(curOperation);
+      displayText.textContent = argOne;
+      curOperation = '';
+    }
+    else if (curOperation !== "") {
       if (argOne !== "" && argTwo !== "") {
-        console.log('yeah');
         displayText.textContent = evaluate(curOperation) + button.id;
         curOperation = button.id;
       }
