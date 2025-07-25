@@ -29,6 +29,15 @@ function evaluate(curOperation) {
     return argOne;
   }
 
+function clearCalculator() {
+  curOperation = "";
+  argOne = '';
+  argTwo = '';
+  displayText.textContent = '';
+  started = false;
+  checkOperatorButtons("");
+}
+
 function executeAction(button, displayText) {
   if (button.className === 'operator') {
     checkOperatorButtons(button.id);
@@ -39,24 +48,34 @@ function executeAction(button, displayText) {
     }
     else if (curOperation !== "") {
       if (argOne !== "" && argTwo !== "") {
-        displayText.textContent = evaluate(curOperation) + button.id;
-        curOperation = button.id;
+        displayText.textContent = evaluate(curOperation);
       }
+      curOperation = button.id;
     }
     else {
       curOperation = button.id;
       started = true;
-      displayText.textContent += button.id;
     }
   }
   else if (button.className === 'number') {
     if (started) {
-      argTwo += button.id;
+      if (curOperation === '') {
+        clearCalculator();
+        argOne += button.id;
+        displayText.textContent += button.id;
+      }
+      else {
+        argTwo += button.id;
+        displayText.textContent = argTwo;
+      }
     }
     else {
       argOne += button.id;
+      displayText.textContent += button.id;
     }
-    displayText.textContent += button.id;
+  }
+  else if (button.className === 'clear') {
+    clearCalculator();
   }
 }
 
