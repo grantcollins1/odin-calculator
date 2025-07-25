@@ -7,6 +7,16 @@ let started = false;
 function evaluate(curOperation) {
   if (curOperation === '+') {
     argOne = String(parseFloat(argOne) + parseFloat(argTwo));
+  }
+  else if (curOperation === 'x') {
+    argOne = String(parseFloat(argOne) * parseFloat(argTwo))
+  }
+  else if (curOperation === '-') {
+    argOne = String(parseFloat(argOne) - parseFloat(argTwo))
+  }
+  else if (curOperation === '/') {
+    argOne = String(parseFloat(argOne) / parseFloat(argTwo))
+  }
     argTwo = '';
     return argOne;
   }
