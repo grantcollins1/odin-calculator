@@ -88,6 +88,29 @@ function handleNumber(button, displayText) {
   }
 }
 
+function handleDecimal(button, displayText) {
+  if (isArgOneSaved()) {
+    if (curOperation === '') {
+      clearCalculator();
+      displayText.textContent = '0.';
+    }
+    else {
+      if (argTwo === '') {
+        argTwo = '0.';
+      }
+      else if (!argTwo.includes('.')) {
+        argTwo += button.id;
+      }
+      displayText.textContent = argTwo;
+    }
+  }
+  else {
+    if (!displayText.textContent.includes('.')) {
+      displayText.textContent += button.id;
+    }
+  }
+}
+
 function executeAction(button, displayText) {
   if (displayText.textContent === "ERROR") {
     clearCalculator();
@@ -100,6 +123,9 @@ function executeAction(button, displayText) {
   }
   else if (button.className === 'clear') {
     clearCalculator();
+  }
+  else if (button.className === 'decimal') {
+    handleDecimal(button, displayText);
   }
 }
 
@@ -122,7 +148,6 @@ operatorRows.forEach((row) => {
 
 function checkOperatorButtons(id) {
   operatorButtons.forEach((button) => {
-    console.log(button.id);
     if (button.id === id) {
       button.style.backgroundColor = "rgb(40, 37, 228)";
     }
