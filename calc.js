@@ -50,16 +50,18 @@ function executeAction(button, displayText) {
       calcStatus = "pastResult";
       curOperation = '';
     }
-    else if (calcStatus = "pastResult") {
-      if (argOne !== "" && argTwo !== "") {
-        displayText.textContent = evaluate(curOperation);
-        calcStatus = "pastResult";
-      }
-      curOperation = button.id;
-    }
     else {
-      curOperation = button.id;
-      calcStatus = "pastResult";
+      if (calcStatus = "pastResult") {
+        if (argOne !== "" && argTwo !== "") {
+          displayText.textContent = evaluate(curOperation);
+          calcStatus = "pastResult";
+        }
+        curOperation = button.id;
+        }
+        else {
+          curOperation = button.id;
+          calcStatus = "pastResult";
+        }
     }
   }
   else if (button.className === 'number') {
