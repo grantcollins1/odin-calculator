@@ -46,15 +46,20 @@ function executeAction(button, displayText) {
     checkOperatorButtons(button.id);
     if (button.id === '=') {
       argOne = evaluate(curOperation);
-      displayText.textContent = argOne;
-      calcStatus = "pastResult";
-      curOperation = '';
+      if (argOne === "ERROR") {
+        clearCalculator();
+        displayText.textContent = "ERROR";
+      }
+      else {
+        displayText.textContent = argOne;
+        calcStatus = "pastResult";
+        curOperation = '';
+      }
     }
     else {
       if (calcStatus = "pastResult") {
         if (argOne !== "" && argTwo !== "") {
           displayText.textContent = evaluate(curOperation);
-          calcStatus = "pastResult";
         }
         curOperation = button.id;
         }
