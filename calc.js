@@ -1,8 +1,6 @@
 let curOperation = "";
-let argOne = '0';
+let argOne = '';
 let argTwo = '';
-let started = false;
-let calcStatus = "cleared";
 
 function parseNumber(outcome) {
   return +outcome.toFixed(4);
@@ -32,64 +30,73 @@ function evaluate(curOperation) {
     return argOne;
   }
 
+function isArgOneSaved() {
+  if (argOne !== '' && argOne != 'ERROR') {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 function clearCalculator() {
   curOperation = "";
-  argOne = '0';
+  argOne = '';
   argTwo = '';
   displayText.textContent = '0';
   checkOperatorButtons("");
-  calcStatus = "cleared";
+}
+
+function handleOperator(button, displayText) {
+  if (button.id === '=') {
+    argOne = evaluate(curOperation);
+    displayText.textContent = argOne;
+    curOperation = '';
+  }
+  else {
+    console.log(isArgOneSaved());
+    if (isArgOneSaved()) {
+      if (argTwo !== "") {
+        displayText.textContent = evaluate(curOperation);
+      }
+    }
+      argOne = displayText.textContent;
+      curOperation = button.id;
+    }
+  checkOperatorButtons(button.id);
+
+}
+
+function handleNumber(button, displayText) {
+  if (isArgOneSaved()) {
+    if (curOperation === '') {
+      clearCalculator();
+      displayText.textContent = button.id;
+    }
+    else {
+      argTwo += button.id;
+      displayText.textContent = argTwo;
+    }
+  }
+  else {
+    if (displayText.textContent === '0') {
+      displayText.textContent = button.id;
+    }
+    else {
+      displayText.textContent += button.id;
+    }
+  }
 }
 
 function executeAction(button, displayText) {
+  if (displayText.textContent === "ERROR") {
+    clearCalculator();
+  }
   if (button.className === 'operator') {
-    checkOperatorButtons(button.id);
-    if (button.id === '=') {
-      argOne = evaluate(curOperation);
-      if (argOne === "ERROR") {
-        clearCalculator();
-        displayText.textContent = "ERROR";
-      }
-      else {
-        displayText.textContent = argOne;
-        calcStatus = "pastResult";
-        curOperation = '';
-      }
-    }
-    else {
-      if (calcStatus = "pastResult") {
-        if (argOne !== "" && argTwo !== "") {
-          displayText.textContent = evaluate(curOperation);
-        }
-        curOperation = button.id;
-        }
-        else {
-          curOperation = button.id;
-          calcStatus = "pastResult";
-        }
-    }
+    handleOperator(button, displayText);
   }
   else if (button.className === 'number') {
-    if (calcStatus === "pastResult") {
-      if (curOperation === '') {
-        clearCalculator();
-        argOne = button.id;
-        displayText.textContent = argOne;
-      }
-      else {
-        argTwo += button.id;
-        displayText.textContent = argTwo;
-      }
-    }
-    else {
-      if (argOne === '0') {
-        argOne = button.id;
-      }
-      else {
-        argOne += button.id;
-      }
-      displayText.textContent = argOne;
-    }
+    handleNumber(button, displayText);
   }
   else if (button.className === 'clear') {
     clearCalculator();
