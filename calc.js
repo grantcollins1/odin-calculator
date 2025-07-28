@@ -54,7 +54,6 @@ function handleOperator(button, displayText) {
     curOperation = '';
   }
   else {
-    console.log(isArgOneSaved());
     if (isArgOneSaved()) {
       if (argTwo !== "") {
         displayText.textContent = evaluate(curOperation);
@@ -149,11 +148,10 @@ operatorRows.forEach((row) => {
 function checkOperatorButtons(id) {
   operatorButtons.forEach((button) => {
     if (button.id === id) {
-      button.style.backgroundColor = "rgb(40, 37, 228)";
+      button.style.backgroundColor = "rgb(66, 126, 195)";
     }
     else {
       button.style.backgroundColor = 'rgb(106, 166, 235)';
-      button.style.border = 0;
     }
   });
 }
