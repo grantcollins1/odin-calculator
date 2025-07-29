@@ -31,6 +31,10 @@ button {
   font-size: 20px;
 }
 
+button:hover {
+  filter: brightness(90%);
+}
+
 .clear {
   flex: 3.45;
   background-color: rgb(240, 128, 128); 
